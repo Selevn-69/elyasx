@@ -1,0 +1,157 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Font families */
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-h1: 'Plus Jakarta Sans', sans-serif;
+  --font-h2: 'Plus Jakarta Sans', sans-serif;
+  --font-h3: 'Plus Jakarta Sans', sans-serif;
+  --font-body-lg: 'Plus Jakarta Sans', sans-serif;
+  --font-body-md: 'Plus Jakarta Sans', sans-serif;
+  --font-body-sm: 'Plus Jakarta Sans', sans-serif;
+  --font-label-bold: 'Plus Jakarta Sans', sans-serif;
+  --font-label-caps: 'Plus Jakarta Sans', sans-serif;
+
+  /* Font sizes with modifiers */
+  --text-h1: 40px;
+  --text-h1--line-height: 1.2;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h1--font-weight: 700;
+
+  --text-h2: 32px;
+  --text-h2--line-height: 1.2;
+  --text-h2--letter-spacing: -0.01em;
+  --text-h2--font-weight: 700;
+
+  --text-h3: 24px;
+  --text-h3--line-height: 1.3;
+  --text-h3--font-weight: 600;
+
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 1.6;
+  --text-body-lg--font-weight: 400;
+
+  --text-body-md: 16px;
+  --text-body-md--line-height: 1.6;
+  --text-body-md--font-weight: 400;
+
+  --text-body-sm: 14px;
+  --text-body-sm--line-height: 1.5;
+  --text-body-sm--font-weight: 400;
+
+  --text-label-bold: 14px;
+  --text-label-bold--line-height: 1.2;
+  --text-label-bold--font-weight: 600;
+
+  --text-label-caps: 12px;
+  --text-label-caps--line-height: 1;
+  --text-label-caps--letter-spacing: 0.05em;
+  --text-label-caps--font-weight: 700;
+
+  /* Named spacing tokens */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+  --spacing-gutter: 24px;
+  --spacing-margin: 64px;
+  --spacing-unit: 4px;
+  --spacing-max_width: 1280px;
+
+  /* Brand / Material You color tokens */
+  --color-surface: #fff8f6;
+  --color-on-surface: #251913;
+  --color-primary: #9d4300;
+  --color-primary-container: #f97316;
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #582200;
+  --color-primary-fixed: #ffdbca;
+  --color-primary-fixed-dim: #ffb690;
+  --color-on-primary-fixed: #341100;
+  --color-on-primary-fixed-variant: #783200;
+  --color-secondary: #5f5e5e;
+  --color-secondary-container: #e5e2e1;
+  --color-on-secondary: #ffffff;
+  --color-on-secondary-container: #656464;
+  --color-secondary-fixed: #e5e2e1;
+  --color-secondary-fixed-dim: #c8c6c5;
+  --color-on-secondary-fixed: #1c1b1b;
+  --color-on-secondary-fixed-variant: #474646;
+  --color-tertiary: #006398;
+  --color-tertiary-container: #00a2f4;
+  --color-on-tertiary: #ffffff;
+  --color-on-tertiary-container: #003554;
+  --color-tertiary-fixed: #cde5ff;
+  --color-tertiary-fixed-dim: #93ccff;
+  --color-on-tertiary-fixed: #001d32;
+  --color-on-tertiary-fixed-variant: #004b74;
+  --color-background: #fff8f6;
+  --color-on-background: #251913;
+  --color-surface-variant: #f6ded3;
+  --color-on-surface-variant: #584237;
+  --color-outline: #8c7164;
+  --color-outline-variant: #e0c0b1;
+  --color-inverse-surface: #3c2d26;
+  --color-inverse-on-surface: #ffede6;
+  --color-inverse-primary: #ffb690;
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
+  --color-on-error: #ffffff;
+  --color-on-error-container: #93000a;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #fff1eb;
+  --color-surface-container: #ffeae0;
+  --color-surface-container-high: #fce3d9;
+  --color-surface-container-highest: #f6ded3;
+  --color-surface-bright: #fff8f6;
+  --color-surface-dim: #edd5cb;
+  --color-surface-tint: #9d4300;
+  --radius-xxl: 24px;
+}
+
+@layer base {
+  button, [role="button"], a {
+    cursor: pointer;
+  }
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: #fff8f6;
+  color: #251913;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+.payment-radio:checked + label { border-color: #f97316; background-color: #fff1eb; }
+
+.soft-shadow { box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04); }
+.custom-shadow { box-shadow: 0 8px 30px rgba(0,0,0,0.04); }
+.shadow-ambient { box-shadow: 0 8px 30px rgba(0,0,0,0.04); }
+.login-card { box-shadow: 0 8px 30px rgba(0,0,0,0.04); }
+.status-glow { box-shadow: 0 0 15px rgba(34, 197, 94, 0.4); }
+.input-focus-ring:focus {
+  outline: none;
+  border-color: #f97316;
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.15);
+}
+
+@keyframes cardEntrance {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
