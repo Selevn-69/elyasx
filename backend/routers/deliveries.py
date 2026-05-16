@@ -1,7 +1,8 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import Literal
-from database import query, execute
+from database import query, execute, get_connection
+from ml.driver_assignment import choose_best_driver
 
 router = APIRouter(prefix="/deliveries", tags=["Deliveries"])
 
@@ -194,24 +195,42 @@ def decline_delivery(delivery_id: int):
         (delivery_id,)
     )
 
-    # Find next best available driver, skipping anyone who already declined or has a pending offer for this order
-    next_driver = query(
+    order = query(
         """
-        SELECT d.driver_id, COUNT(del.delivery_id) AS active_count
-        FROM driver d
-        LEFT JOIN delivery del ON d.driver_id = del.driver_id
-          AND del.delivery_status NOT IN ('delivered', 'failed', 'declined')
-        WHERE d.status = 'available'
-          AND d.driver_id NOT IN (
-            SELECT driver_id FROM delivery
-            WHERE order_id = %s AND delivery_status IN ('declined', 'offered')
-          )
-        GROUP BY d.driver_id
-        ORDER BY active_count ASC, d.driver_id ASC
-        LIMIT 1
+        SELECT o.customer_id, o.order_type, c.points AS customer_points,
+               COALESCE(p.payment_method, 'cash') AS payment_method
+        FROM `order` o
+        JOIN customer c ON o.customer_id = c.customer_id
+        LEFT JOIN payment p ON o.order_id = p.order_id
+        WHERE o.order_id = %s
         """,
         (order_id,), fetch="one"
     )
+    excluded = query(
+        """
+        SELECT DISTINCT driver_id
+        FROM delivery
+        WHERE order_id = %s AND delivery_status IN ('declined', 'offered')
+        """,
+        (order_id,)
+    )
+    excluded_driver_ids = [row["driver_id"] for row in excluded]
+
+    next_driver = None
+    if order:
+        conn = get_connection()
+        try:
+            cur = conn.cursor(dictionary=True)
+            next_driver = choose_best_driver(cur, {
+                "customer_id": order["customer_id"],
+                "customer_points": order["customer_points"],
+                "order_type": order["order_type"],
+                "payment_method": order["payment_method"],
+                "dropoff_address_id": dropoff_address_id,
+                "exclude_driver_ids": excluded_driver_ids,
+            })
+        finally:
+            conn.close()
 
     if next_driver:
         execute(

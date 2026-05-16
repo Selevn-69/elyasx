@@ -1,0 +1,78 @@
+{
+  "model_type": "logistic_regression",
+  "source": "synthetic course/demo data",
+  "numeric_means": {
+    "driver_active_count": 1.1435,
+    "driver_completed_count": 91.291,
+    "driver_declined_count": 22.7,
+    "driver_failed_count": 8.8885,
+    "driver_avg_rating": 4.00835,
+    "driver_total_ratings": 32.203,
+    "driver_points": 448.9605,
+    "customer_total_orders": 34.7755,
+    "customer_points": 302.086,
+    "order_hour": 15.046,
+    "order_day_of_week": 2.964
+  },
+  "numeric_stds": {
+    "driver_active_count": 1.1339787255499991,
+    "driver_completed_count": 51.739572079792076,
+    "driver_declined_count": 13.150779444580463,
+    "driver_failed_count": 5.467089513626058,
+    "driver_avg_rating": 1.0,
+    "driver_total_ratings": 22.801333096992376,
+    "driver_points": 255.08902159785316,
+    "customer_total_orders": 20.643233752249184,
+    "customer_points": 173.02600268167788,
+    "order_hour": 4.93901650128849,
+    "order_day_of_week": 2.0056679685331766
+  },
+  "categories": {
+    "order_type": [
+      "food",
+      "online",
+      "package"
+    ],
+    "dropoff_city": [
+      "bethlehem",
+      "haifa",
+      "jerusalem",
+      "nablus",
+      "ramallah",
+      "tel aviv"
+    ],
+    "payment_method": [
+      "cash"
+    ]
+  },
+  "weights": [
+    -1.1181348657521066,
+    0.17911426160542115,
+    -0.45717898231621656,
+    -0.787708896616721,
+    0.5869830985067355,
+    0.1996204279652887,
+    -0.030319643698217207,
+    0.2879533417109846,
+    0.17101444500902124,
+    -0.12243091657702194,
+    -0.04617304831180778,
+    -0.09988130166610638,
+    -0.16696658911200843,
+    0.06441093714186963,
+    -0.03369371543339841,
+    -0.17805151483277484,
+    0.09890892542074436,
+    0.15351625248630954,
+    -0.11219986541524612,
+    -0.1309170358618798,
+    -0.20243695363624542
+  ],
+  "bias": -1.991218923810369,
+  "metrics": {
+    "accuracy": 0.796,
+    "precision": 0.7111,
+    "recall": 0.2645,
+    "test_rows": 500
+  }
+}

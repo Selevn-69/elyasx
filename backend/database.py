@@ -2,9 +2,10 @@ import mysql.connector
 from mysql.connector import Error
 from contextlib import contextmanager
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(Path(__file__).parent / ".env")
 
 DB_CONFIG = {
     "host": os.getenv("DB_HOST", "localhost"),

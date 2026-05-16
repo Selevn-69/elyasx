@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import Optional, Literal
 from database import query, execute, transaction
+from ml.driver_assignment import choose_best_driver
 
 router = APIRouter(prefix="/orders", tags=["Orders"])
 
@@ -216,19 +217,13 @@ def create_order(body: CreateOrderBody):
             )
 
             if body.dropoff_address_id:
-                cur.execute(
-                    """
-                    SELECT d.driver_id, COUNT(del.delivery_id) AS active_count
-                    FROM driver d
-                    LEFT JOIN delivery del ON d.driver_id = del.driver_id
-                      AND del.delivery_status NOT IN ('delivered', 'failed', 'declined')
-                    WHERE d.status = 'available'
-                    GROUP BY d.driver_id
-                    ORDER BY active_count ASC, d.driver_id ASC
-                    LIMIT 1
-                    """
-                )
-                available_driver = cur.fetchone()
+                available_driver = choose_best_driver(cur, {
+                    "customer_id": body.customer_id,
+                    "customer_points": customer["points"],
+                    "order_type": body.order_type,
+                    "payment_method": body.payment_method,
+                    "dropoff_address_id": body.dropoff_address_id,
+                })
                 if available_driver:
                     cur.execute(
                         """
