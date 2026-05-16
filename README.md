@@ -10,15 +10,17 @@ ElyasX is a delivery management project with a React/Vite frontend and a FastAPI
 
 ## Database Setup
 
-1. Create a MySQL database named `elyasx`.
+1. Create or use a MySQL database.
 2. Import the schema from `schema.sql`.
-3. Create `backend/.env` if your local MySQL settings are different from the defaults:
+3. Create `backend/.env` with your database connection:
 
 ```env
-DB_HOST=localhost
-DB_USER=root
+DB_HOST=your_mysql_host
+DB_PORT=3306
+DB_USER=your_mysql_user
 DB_PASSWORD=your_password
-DB_NAME=elyasx
+DB_NAME=your_database_name
+CORS_ORIGINS=http://localhost:5173
 ```
 
 ## Backend Setup
@@ -43,6 +45,12 @@ npm run dev
 ```
 
 The frontend will run at the URL printed by Vite, usually `http://localhost:5173`.
+
+To point the frontend at a deployed backend instead of local FastAPI, create a root `.env` file:
+
+```env
+VITE_API_BASE_URL=http://your_backend_host:8000/api
+```
 
 ## Build
 
